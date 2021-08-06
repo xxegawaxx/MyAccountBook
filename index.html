@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>MyMoney SampleCode</title>
+    <title>MyAccountBook</title>
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-
     <!--sakuraの読み込みと、画面レイアウトのスタイルシートの読み込み-->
     <link
       rel="stylesheet"
@@ -14,33 +13,20 @@
       type="text/css"
     />
     <link rel="stylesheet" href="style.css" type="text/css" />
-
-    <!--IndexedDB関連のJavaScriptの読み込み-->
-    <script src="indexedDB.js">
-      s
-    </script>
-
-    <!-- Chart.jsとグラフ表示のJavaScriptの読み込み -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    <script src="graph.js"></script>
-
-    <!--フォーム入力チェックのJavaScript読み込み-->
-    <script src="inputCheck.js"></script>
   </head>
-
   <body>
     <header>
-      <h1>MyMoney</h1>
+      <h1 id="home">MyMoney</h1>
       <div class="navi">
-        <button>ホーム</button>
-        <button>入力</button>
-        <button>入出金一覧</button>
-        <button>グラフ</button>
+        <button onclick="location.hash='#home'">ホーム</button>
+        <button onclick="location.hash='#input'">入力</button>
+        <button onclick="location.hash='#inOutList'">入出金一覧</button>
+        <button onclick="location.hash='#graph'">グラフ</button>
       </div>
     </header>
     <article>
       <!-- 入力 -->
-      <h2>入力</h2>
+      <h2 id="inpug">入力</h2>
       <section id="inputSection">
         <div>
           <label>収支</label>
@@ -75,18 +61,25 @@
       </div>
 
       <!-- 入出金一覧 -->
-      <h2>入出金一覧</h2>
+      <h2 id="inOutList">入出金一覧</h2>
       <section id="list">
         <!-- ここに入出金一覧を表示します。 -->
       </section>
 
       <!-- グラフ -->
-      <h2>グラフ</h2>
+      <h2 id="graph">グラフ</h2>
       <!-- <hr> -->
       <section>
         <!-- ここにグラフを表示します。 -->
       </section>
     </article>
     <footer>&copy;MyMoney</footer>
+    <!--IndexedDB関連のJavaScriptの読み込み-->
+    <script src="indexedDB.js"></script>
+    <!-- Chart.jsとグラフ表示のJavaScriptの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="graph.js"></script>
+    <!--フォーム入力チェックのJavaScript読み込み-->
+    <script src="inputCheck.js"></script>
   </body>
 </html>
