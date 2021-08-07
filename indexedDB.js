@@ -106,7 +106,6 @@ function createList() {
 
       let section = document.getElementById('list');
       //入出金一覧のテーブルを作る
-      //バッククオートでヒアドキュメント
       let table = `
                 <table>
                     <tr>
@@ -130,12 +129,44 @@ function createList() {
                       <td>${row.category}</td>
                       <td>${row.amount}</td>
                       <td>${row.memo}</td>
-                      <td><button>×</button></td>
+                      <td><button onclick="deleteData('${row.id}')">×</button></td>
                   </tr>
               `;
       });
       table += `</table>`;
       section.innerHTML = table;
     };
+  };
+}
+
+function deleteData(id) {
+  let database = indexedDB.open(dbName, dbVersion);
+  database.onupgradeneeded = function (event) {
+    let db = event.target.result;
+  };
+
+  database.onsuccess = function (event) {
+    let db = event.target.result;
+    let transaction = db.transaction(storeName, 'readwrite');
+    transaction.oncomplete = function (event) {
+      console.log('トランザクション完了');
+    };
+    transaction.onerror = function (event) {
+      console.log('トランザクションエラー');
+    };
+    let store = transaction.objectStore(storeName);
+
+    let deleteData = store.delete(id);
+    deleteData.onsuccess = function (event) {
+      console.log('削除成功');
+      createList();
+    };
+    deleteData.onerror = function (event) {
+      console.log('削除失敗');
+    };
+    db.close();
+  };
+  database.onerror = function (event) {
+    console.log('データベースに接続できませんでした');
   };
 }
