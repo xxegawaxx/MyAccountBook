@@ -46,6 +46,8 @@ function regist() {
 
   // データベースに登録
   insertData(balance, date, category, amount, memo);
+  // 一覧を作成
+  createList();
 }
 
 /** データ登録 */
@@ -88,5 +90,52 @@ function insertData(balance, date, category, amount, memo) {
       console.log('データが登録できませんでした');
     };
     db.close();
+  };
+}
+
+createList();
+function createList() {
+  let database = indexedDB.open(dbName);
+  database.onsuccess = function (event) {
+    let db = event.target.result;
+    let transaction = db.transaction(storeName, 'readonly');
+    let store = transaction.objectStore(storeName);
+    store.getAll().onsuccess = function (data) {
+      console.log(data);
+      let rows = data.target.result;
+
+      let section = document.getElementById('list');
+      //入出金一覧のテーブルを作る
+      //バッククオートでヒアドキュメント
+      let table = `
+                <table>
+                    <tr>
+                        <th>日付</th>
+                        <th>収支</th>
+                        <th>カテゴリ</th>
+                        <th>金額</th>
+                        <th>メモ</th>
+                        <th>削除
+                    </th>
+                </tr>
+            `;
+
+      //入出金のデータを表示
+      rows.forEach(row => {
+        console.log(row);
+        table += `
+                  <tr>
+                      <td>${row.date}</td>
+                      <td>${row.balance}</td>
+                      <td>${row.category}</td>
+                      <td>${row.amount}</td>
+                      <td>${row.memo}</td>
+                      <td><button>×</button></td>
+                  </tr>
+              `;
+      });
+      table += `</table>`;
+      section.innerHTML = table;
+    };
   };
 }
