@@ -135,6 +135,9 @@ function createList() {
       });
       table += `</table>`;
       section.innerHTML = table;
+
+      // グラフ作成
+      createPieChart(rows);
     };
   };
 }

@@ -1,1 +1,1 @@
-//第5章：グラフを表示
+function createPieChart(rows) {}
