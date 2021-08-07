@@ -7,11 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <!--sakuraの読み込みと、画面レイアウトのスタイルシートの読み込み-->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/sakura.css/css/sakura-earthly.css"
-      type="text/css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css" />
     <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
   <body>
@@ -33,7 +29,7 @@
           <input name="balance" type="radio" value="支出" onclick="disableSelectBox(false)" />支出
           <input name="balance" type="radio" value="収入" onclick="disableSelectBox(true)" />収入
           <label>日付</label>
-          <input type="date" />
+          <input type="date" id="date" />
           <label>カテゴリ</label>
 
           <select id="category">
@@ -52,13 +48,13 @@
         </div>
         <div>
           <label>金額</label>
-          <input type="number" placeholder="金額を記入" />円
+          <input id="amount" type="number" placeholder="金額を記入" />円
           <label>メモ</label>
-          <input type="text" placeholder="買ったものを記入" />
+          <input id="memo" type="text" placeholder="買ったものを記入" />
         </div>
       </section>
       <div class="submit">
-        <button>登録する</button>
+        <button onclick="inputCheck()">登録する</button>
       </div>
 
       <!-- 入出金一覧 -->
